@@ -6,6 +6,7 @@ All rights reserved.
 local _, ns = ...
 
 local addon = LibStub('AceAddon-3.0'):GetAddon('AdiBags')
+--local TSM = LibStub('AceAddon-3.0'):GetAddon('TradeSkillMaster')
 local L = setmetatable({}, {__index = addon.L})
 
 do -- Localization
@@ -15,48 +16,33 @@ do -- Localization
     local locale = GetLocale()
     if locale == "frFR" then
         
-        elseif locale == "deDE" then
-        
-        elseif locale == "esMX" then
-            
-            elseif locale == "ruRU" then
-            
-            elseif locale == "esES" then
-                
-                elseif locale == "zhTW" then
-                
-                elseif locale == "zhCN" then
-                    
-                    elseif locale == "koKR" then
-                    
-                    end
-end
-
-local tooltip
-local function create()
-    local tip, leftside = CreateFrame("GameTooltip"), {}
-    for i = 1, 6 do
-        local L, R = tip:CreateFontString(), tip:CreateFontString()
-        L:SetFontObject(GameFontNormal)
-        R:SetFontObject(GameFontNormal)
-        tip:AddFontStrings(L, R)
-        leftside[i] = L
-    end
-    tip.leftside = leftside
-    return tip
+	elseif locale == "deDE" then
+	
+	elseif locale == "esMX" then
+	
+	elseif locale == "ruRU" then
+	
+	elseif locale == "esES" then
+		
+	elseif locale == "zhTW" then
+	
+	elseif locale == "zhCN" then
+		
+	elseif locale == "koKR" then
+	
+	end
 end
 
 -- The filter itself
-local setFilter = addon:RegisterFilter("TSMOps", 91, 'ABEvent-1.0')
+local setFilter = addon:RegisterFilter("TSMOps", 99, 'ABEvent-1.0')
 setFilter.uiName = L['TSMOps']
 setFilter.uiDesc = L['Provide filters for TSM Operations.']
 
 function setFilter:OnInitialize()
     self.db = addon.db:RegisterNamespace('TSMOps', {
         profile = {
-			enableBoE = true,
-			enableBoA = true
-		},
+            enableMail = true,
+        },
         char = {},
     })
 end
@@ -76,25 +62,14 @@ end
 local setNames = {}
 
 function setFilter:Filter(slotData)
-    tooltip = tooltip or create()
-    tooltip:SetOwner(UIParent, "ANCHOR_NONE")
-    tooltip:ClearLines()
+    local itemId = slotData.itemId
+    local itemString = TSMAPI.Item:ToItemString(itemId)
     
-    if slotData.bag == BANK_CONTAINER then
-        tooltip:SetInventoryItem("player", BankButtonIDToInvSlotID(slotData.slot, nil))
-    else
-        tooltip:SetBagItem(slotData.bag, slotData.slot)
+    -- Mailing, Auctioning, Crafting, Shopping, Warehousing
+    local operation = TSMAPI.Operations:GetFirstByItem(itemString, 'Mailing')
+    if operation then
+        return 'TSM:Mailing'
     end
-    
-    for i = 1, 6 do
-        local t = tooltip.leftside[i]:GetText()
-        if self.db.profile.enableBoE and t == ITEM_BIND_ON_EQUIP then
-            return L["BoE"]
-        elseif self.db.profile.enableBoA and (t == ITEM_ACCOUNTBOUND or t == ITEM_BIND_TO_BNETACCOUNT or t == ITEM_BNETACCOUNTBOUND) then
-            return L["BoA"]
-        end
-    end
-    tooltip:Hide()
 end
 
 function setFilter:GetOptions()
