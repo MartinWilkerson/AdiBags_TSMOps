@@ -1,0 +1,11 @@
+## Interface: 70100
+
+## Title: AdiBags - TSM Operations
+## Notes: Adds duplicate item counts to AdiBags, covering all character storage.
+## Author: Tevildo
+## Version: v1.0
+## X-Date: 2014-01-24T19:49:00
+
+## Dependencies: AdiBags, DataStore, DataStore_Containers, TradeSkillMaster
+
+AdiBags_TSMOps.lua
