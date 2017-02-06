@@ -18,6 +18,8 @@ This addon depends on AdiBags and TradeSkillMaster.
 
 ### Mailing
 
-For the Mailing filters, items that are going to be sent to the current
-character will be excluded. This way the filter only contains items that will
-be operated on.
+I would like for the Mailing filters to exclude items that will be sent to the
+current character to be excluded. This way the filter only contains items that
+will be operated on. Unfortunately it seems particularly difficult to get this
+information from TSM so it may be necessary to have a list of operations to exclude
+for each TSM module.
