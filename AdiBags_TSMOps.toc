@@ -1,4 +1,4 @@
-## Interface: 70100
+## Interface: 70200
 
 ## Title: AdiBags - TSM Operations
 ## Notes: Adds duplicate item counts to AdiBags, covering all character storage.
